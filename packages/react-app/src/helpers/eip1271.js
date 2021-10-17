@@ -29,17 +29,10 @@ const spec = {
   ],
 };
 
-export async function isValidSignature(
-  address,
-  sig,
-  data,
-  provider,
-  abi = spec.abi,
-  magicValue = spec.magicValue
-) {
+export async function isValidSignature(address, sig, data, provider, abi = spec.abi, magicValue = spec.magicValue) {
   let returnValue;
   try {
-    let contract = new Contract(address, abi, provider);
+    const contract = new Contract(address, abi, provider);
     console.log(contract);
     returnValue = await contract.isValidSignature(utils.arrayify(data), sig);
     console.log("returnValue", returnValue);

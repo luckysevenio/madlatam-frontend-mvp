@@ -20,12 +20,12 @@ async function prepareOrderMessage(form) {
 function createERC721ForEthOrder(maker, contract, tokenId, price, salt) {
   return {
     type: "RARIBLE_V2",
-    maker: maker,
+    maker,
     make: {
       assetType: {
         assetClass: "ERC721",
-        contract: contract,
-        tokenId: tokenId,
+        contract,
+        tokenId,
       },
       value: "1",
     },
@@ -47,12 +47,12 @@ function createERC721ForEthOrder(maker, contract, tokenId, price, salt) {
 function createEthForERC721Order(maker, contract, tokenId, price, salt) {
   return {
     type: "RARIBLE_V2",
-    maker: maker,
+    maker,
     take: {
       assetType: {
         assetClass: "ERC721",
-        contract: contract,
-        tokenId: tokenId,
+        contract,
+        tokenId,
       },
       value: "1",
     },
@@ -73,8 +73,8 @@ function createEthForERC721Order(maker, contract, tokenId, price, salt) {
 export const createSellOrder = async (type, provider, params) => {
   let order;
   let signature;
-  const salt = random(1,1000)
-  console.log({params})
+  const salt = random(1, 1000);
+  console.log({ params });
   switch (type) {
     case "MAKE_ERC721_TAKE_ETH":
       order = createERC721ForEthOrder(
@@ -82,11 +82,11 @@ export const createSellOrder = async (type, provider, params) => {
         params.makeERC721Address,
         params.makeERC721TokenId,
         params.ethAmt,
-        salt
+        salt,
       );
       console.log({ order });
       const preparedOrder = await prepareOrderMessage(order);
-      console.log({preparedOrder})
+      console.log({ preparedOrder });
       signature = await sign(provider, preparedOrder, params.accountAddress);
 
       break;
@@ -119,21 +119,23 @@ export const matchSellOrder = async (sellOrder, params) => {
   );
   const preparedOrder = await prepareOrderMessage(matchingOrder);
   console.log({ preparedOrder });
-  
-  console.log({sellOrder})
-  
-  const preparedSellOrder = await prepareOrderMessage(createERC721ForEthOrder(
-    sellOrder.maker,
-    sellOrder.make.assetType.contract,
-    sellOrder.make.assetType.tokenId,
-    sellOrder.take.value,
-    parseInt(Number(sellOrder.salt), 10)
-  ))
-  return {preparedOrder, preparedSellOrder};
+
+  console.log({ sellOrder });
+
+  const preparedSellOrder = await prepareOrderMessage(
+    createERC721ForEthOrder(
+      sellOrder.maker,
+      sellOrder.make.assetType.contract,
+      sellOrder.make.assetType.tokenId,
+      sellOrder.take.value,
+      parseInt(Number(sellOrder.salt), 10),
+    ),
+  );
+  return { preparedOrder, preparedSellOrder };
 };
 
 export async function prepareMatchingOrder(sellOrder, accountAddress) {
-  const rariblePrepareTxUrl = `https://api-dev.rarible.com/protocol/v0.1/ethereum/order/orders/${sellOrder.hash}/prepareTx`
+  const rariblePrepareTxUrl = `https://api-dev.rarible.com/protocol/v0.1/ethereum/order/orders/${sellOrder.hash}/prepareTx`;
   const res = await fetch(rariblePrepareTxUrl, {
     method: "POST",
     headers: {
@@ -143,7 +145,7 @@ export async function prepareMatchingOrder(sellOrder, accountAddress) {
       maker: accountAddress,
       amount: 1,
       payouts: [],
-      originFees: []
+      originFees: [],
     }),
   });
   const resJson = await res.json();

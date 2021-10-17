@@ -1,17 +1,17 @@
 import { utils } from "ethers";
-const ethUtil = require('ethereumjs-util');
+
+const ethUtil = require("ethereumjs-util");
 
 export function id(str) {
-	return `0x${ethUtil.keccak256(str).toString("hex").substring(0, 8)}`;
+  return `0x${ethUtil.keccak256(str).toString("hex").substring(0, 8)}`;
 }
 
 export function enc(token, tokenId) {
-  const coder = new utils.AbiCoder()
-	if (tokenId) {
-		return coder.encode(["address", "uint256"], [token, tokenId]);
-	} else {
-		return coder.encode("address", token);
-	}
+  const coder = new utils.AbiCoder();
+  if (tokenId) {
+    return coder.encode(["address", "uint256"], [token, tokenId]);
+  }
+  return coder.encode("address", token);
 }
 
 export const ETH = id("ETH");
