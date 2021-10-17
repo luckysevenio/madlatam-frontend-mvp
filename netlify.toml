@@ -1,0 +1,26 @@
+[build]
+base = "."
+publish = "/packages/react-app/build"
+
+# Production store:
+# All deploys from the main repository branch
+# will inherit these settings.
+[context.production]
+command = "npm run build"
+[context.production.environment]
+
+
+
+# Deploy Preview store:
+# All deploys generated from a pull/merge request
+# will inherit these settings.
+[context.deploy-preview]
+command = "npm run build"
+[context.deploy-preview.environment]
+
+# Branch deploy store:
+# All deploys that are not from a pull/merge request
+# or from the production branch will inherit these settings.
+[context.branch-deploy]
+command = "npm run build"
+[context.branch-deploy.environment]
