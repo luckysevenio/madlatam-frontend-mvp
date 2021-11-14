@@ -25,6 +25,8 @@ export default function Mint(props) {
           setIpfsHash(e.target.value);
         }}
       />
+      {writeContracts?.YourCollectible?.address}
+      <br />
       <Button
         style={{ margin: 8 }}
         loading={sending}

@@ -17,6 +17,9 @@ async function prepareOrderMessage(form) {
   return resJson.signMessage;
 }
 
+// "Instantiation of [simple type, class com.rarible.protocol.dto.RaribleV2OrderFormDto] value failed for JSON property signature due to missing (therefore NULL) value for creator parameter signature which is a non-nullable type
+//  at [Source: (io.netty.buffer.ByteBufInputStream); line: 1, column: 334] (through reference chain: com.rarible.protocol.dto.RaribleV2OrderFormDto["signature"])"
+// "For input string: ".001" (through reference chain: com.rarible.protocol.dto.RaribleV2OrderFormDto["take"]->com.rarible.protocol.dto.OrderFormAssetDto["value"])"
 function createERC721ForEthOrder(maker, contract, tokenId, price, salt) {
   return {
     type: "RARIBLE_V2",

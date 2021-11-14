@@ -407,7 +407,17 @@ function App(props) {
               }}
               to="/"
             >
-              YourCollectibles
+              Tus NFTs
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/ipfsup">
+            <Link
+              onClick={() => {
+                setRoute("/ipfsup");
+              }}
+              to="/ipfsup"
+            >
+              Subir NFT a IPFS
             </Link>
           </Menu.Item>
           <Menu.Item key="/mint">
@@ -420,7 +430,17 @@ function App(props) {
               Mint
             </Link>
           </Menu.Item>
-          <Menu.Item key="/lazyMint">
+          <Menu.Item key="/transfers">
+            <Link
+              onClick={() => {
+                setRoute("/transfers");
+              }}
+              to="/transfers"
+            >
+              Transferencias
+            </Link>
+          </Menu.Item>
+          {/* <Menu.Item key="/lazyMint">
             <Link
               onClick={() => {
                 setRoute("/lazyMint");
@@ -450,26 +470,6 @@ function App(props) {
               Rarible Order Indexer
             </Link>
           </Menu.Item>
-          <Menu.Item key="/transfers">
-            <Link
-              onClick={() => {
-                setRoute("/transfers");
-              }}
-              to="/transfers"
-            >
-              Transfers
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/ipfsup">
-            <Link
-              onClick={() => {
-                setRoute("/ipfsup");
-              }}
-              to="/ipfsup"
-            >
-              IPFS Upload
-            </Link>
-          </Menu.Item>
           <Menu.Item key="/ipfsdown">
             <Link
               onClick={() => {
@@ -489,7 +489,7 @@ function App(props) {
             >
               Debug Contracts
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
 
         <Switch>
