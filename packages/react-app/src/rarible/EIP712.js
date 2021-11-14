@@ -17,7 +17,7 @@ const DOMAIN_TYPE = [
   },
 ];
 
-module.exports = {
+const EIP721 = {
   createTypeData(domainData, primaryType, message, types) {
     return {
       types: { EIP712Domain: DOMAIN_TYPE, ...types },
@@ -43,3 +43,5 @@ module.exports = {
     };
   },
 };
+
+export default EIP721;
