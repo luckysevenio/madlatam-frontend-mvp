@@ -1,11 +1,13 @@
 import React from "react";
 import { Button, Input, Tooltip, Form, InputNumber, Upload, message } from "antd";
 import { AddressInput } from ".";
+import { disable } from "debug";
 
 export default function Mint(props) {
   const [mintTo, setMintTo] = React.useState();
   const [ipfsHash, setIpfsHash] = React.useState();
   const [sending, setSending] = React.useState();
+  const [disabled, setDisabled] = React.useState(true);
   const [web3, setWeb3] = React.useState();
   const [buffer, setBuffer] = React.useState();
   const writeContracts = props.writeContracts;
@@ -34,6 +36,7 @@ export default function Mint(props) {
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
       setBuffer(Buffer(reader.result));
+      setDisabled(false)
       console.log("buffer", buffer);
       console.log(buffer);
     };
@@ -63,6 +66,7 @@ export default function Mint(props) {
           shape="round"
           type="primary"
           onClick={saveImageOnIpfs}
+          disabled={disabled}
         >
           Cargar
         </Button>
