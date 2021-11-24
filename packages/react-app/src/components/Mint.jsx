@@ -1,12 +1,15 @@
 import React from "react";
 import { Button, Input, Tooltip, Form, InputNumber, Upload, message } from "antd";
 import { AddressInput } from ".";
-import { disable } from "debug";
 
 export default function Mint(props) {
   const [mintTo, setMintTo] = React.useState();
   const [ipfsHash, setIpfsHash] = React.useState();
+  const [ipfsHashPic, setIpfsHashPic] = React.useState();
+  const [ipfsHashNFT, setIpfsHashNFT] = React.useState();
   const [sending, setSending] = React.useState();
+  const [sendingPic, setSendingPic] = React.useState();
+  const [sendingMint, setSendingMint] = React.useState();
   const [disabled, setDisabled] = React.useState(true);
   const [web3, setWeb3] = React.useState();
   const [buffer, setBuffer] = React.useState();
@@ -24,10 +27,27 @@ export default function Mint(props) {
     },
   };
   const validateMessages = {
-    required: "${label} se necesita Descripcion!!",
+    required: "Se necesita ${label}",
   };
-  const onFinish = values => {
-    console.log(values);
+  const onFinish = async(values)   => {
+    const jsonNFT = {
+      root: {
+        description: values.user["descripcion"],
+        name: values.user["nombre"],
+        image: ipfsHashPic
+      }
+    }
+    console.log("UPLOADING...", jsonNFT.root.name);
+    setSending(true);
+    setIpfsHashNFT();
+    const NFT_string = JSON.stringify(jsonNFT);
+    const result = await ipfs.add(Buffer.from(NFT_string));
+    if (result && result.path) {
+      console.log(result.path);
+    }
+    setIpfsHashNFT("https://ipfs.io/ipfs/" + result[0].path);
+    setSending(false);
+    console.log("RESULT:", result);
   };
   function captureFile(event) {
     event.preventDefault();
@@ -36,21 +56,21 @@ export default function Mint(props) {
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
       setBuffer(Buffer(reader.result));
-      setDisabled(false)
+      setDisabled(false);
       console.log("buffer", buffer);
       console.log(buffer);
     };
   }
   const saveImageOnIpfs = async () => {
     console.log("UPLOADING...", Buffer.from(buffer));
-    setSending(true);
-    setIpfsHash();
+    setSendingPic(true);
+    setIpfsHashPic();
     const result = await ipfs.files.add(buffer);
     if (result && result.path) {
-      console.log(ipfsHash);
+      console.log(ipfsHashPic);
     }
-    setIpfsHash(result[0].path);
-    setSending(false);
+    setIpfsHashPic("https://ipfs.io/ipfs/" + result[0].path);
+    setSendingPic(false);
     console.log("RESULT:", result[0].path);
   };
 
@@ -61,7 +81,7 @@ export default function Mint(props) {
         <input type="file" name="photo" id="photo" onChange={captureFile}></input>
         <Button
           style={{ margin: 8 }}
-          loading={sending}
+          loading={sendingPic}
           size="large"
           shape="round"
           type="primary"
@@ -71,23 +91,24 @@ export default function Mint(props) {
           Cargar
         </Button>
       </fieldset>
-      <div>{ipfsHash}</div>
+      <div>{ipfsHashPic}</div>
       <br />
-      {ipfsHash && (
+      {ipfsHashPic && (
         <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-          <Form.Item name={["user", "descripcion"]} label="Descripcion" rules={[{ required: true }]}>
+          <Form.Item name={["user", "nombre"]} label="Nombre" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name={["user", "nombre"]} label="Nombre" rules={[{ required: true }]}>
+          <Form.Item name={["user", "descripcion"]} label="Descripcion" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Subir a IPFS
             </Button>
           </Form.Item>
         </Form>
       )}
+      <div>{ipfsHashNFT}</div>
       <AddressInput
         ensProvider={props.ensProvider}
         placeholder="Recipient Address"
@@ -107,7 +128,7 @@ export default function Mint(props) {
       <br />
       <Button
         style={{ margin: 8 }}
-        loading={sending}
+        loading={sendingMint}
         size="large"
         shape="round"
         type="primary"
