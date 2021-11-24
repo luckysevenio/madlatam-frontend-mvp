@@ -43,7 +43,7 @@ export default function Mint(props) {
     if (result && result.path) {
       console.log(result.path);
     }
-    setIpfsHashNFT("https://ipfs.io/ipfs/" + result[0].path);
+    setIpfsHashNFT(result[0].path);
     setSending(false);
     console.log("RESULT:", result);
   };
@@ -89,7 +89,6 @@ export default function Mint(props) {
           Cargar
         </Button>
       </fieldset>
-      <div>{ipfsHashPic}</div>
       <br />
       {ipfsHashPic && (
         <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
@@ -106,7 +105,6 @@ export default function Mint(props) {
           </Form.Item>
         </Form>
       )}
-      <div>{ipfsHashNFT}</div>
       <AddressInput
         ensProvider={props.ensProvider}
         placeholder="Recipient Address"
@@ -116,7 +114,7 @@ export default function Mint(props) {
         }}
       />
       <Input
-        value={ipfsHash}
+        value={ipfsHashNFT}
         placeholder="IPFS Hash"
         onChange={e => {
           setIpfsHash(e.target.value);
