@@ -31,13 +31,11 @@ export default function Mint(props) {
   };
   const onFinish = async(values)   => {
     const jsonNFT = {
-      root: {
         description: values.user["descripcion"],
         name: values.user["nombre"],
         image: ipfsHashPic
-      }
     }
-    console.log("UPLOADING...", jsonNFT.root.name);
+    console.log("UPLOADING...", jsonNFT.name);
     setSending(true);
     setIpfsHashNFT();
     const NFT_string = JSON.stringify(jsonNFT);
