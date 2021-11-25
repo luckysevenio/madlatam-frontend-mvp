@@ -579,7 +579,7 @@ function App(props) {
             </div>
           </Route>
           <Route path="/mint">
-            <div style={{ paddingTop: 32, width: 740, margin: "auto" }}>
+            <div style={{ paddingTop: 32, width: 1000, margin: "auto" }}>
               <Mint ensProvider={mainnetProvider} provider={userProvider} writeContracts={writeContracts} />
             </div>
           </Route>
