@@ -6,7 +6,7 @@ publish = "/packages/react-app/build"
 # All deploys from the main repository branch
 # will inherit these settings.
 [context.production]
-command = "yarn build"
+command = "npm run build"
 [context.production.environment]
 
 
@@ -15,12 +15,12 @@ command = "yarn build"
 # All deploys generated from a pull/merge request
 # will inherit these settings.
 [context.deploy-preview]
-command = "yarn build"
+command = "npm run build"
 [context.deploy-preview.environment]
 
 # Branch deploy store:
 # All deploys that are not from a pull/merge request
 # or from the production branch will inherit these settings.
 [context.branch-deploy]
-command = "yarn build"
+command = "npm run build"
 [context.branch-deploy.environment]
