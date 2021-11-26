@@ -63,8 +63,5 @@
   },
   "dependencies": {
     "prettier": "^2.4.1"
-  },
-  "devDependencies": {
-    "ipfs-api": "^26.1.2"
   }
 }
