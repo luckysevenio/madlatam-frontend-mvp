@@ -410,7 +410,7 @@ function App(props) {
               Tus NFTs
             </Link>
           </Menu.Item>
-          <Menu.Item key="/ipfsup">
+          {/* <Menu.Item key="/ipfsup">
             <Link
               onClick={() => {
                 setRoute("/ipfsup");
@@ -419,7 +419,7 @@ function App(props) {
             >
               Subir NFT a IPFS
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="/mint">
             <Link
               onClick={() => {
@@ -579,7 +579,7 @@ function App(props) {
             </div>
           </Route>
           <Route path="/mint">
-            <div style={{ paddingTop: 32, width: 740, margin: "auto" }}>
+            <div style={{ paddingTop: 32, width: 1000, margin: "auto" }}>
               <Mint ensProvider={mainnetProvider} provider={userProvider} writeContracts={writeContracts} />
             </div>
           </Route>
@@ -729,7 +729,7 @@ function App(props) {
             </div>
           </Route>
 
-          <Route path="/ipfsup">
+          {/* <Route path="/ipfsup">
             <div style={{ paddingTop: 32, width: 740, margin: "auto", textAlign: "left" }}>
               <ReactJson
                 style={{ padding: 8 }}
@@ -770,7 +770,7 @@ function App(props) {
             </Button>
 
             <div style={{ padding: 16, paddingBottom: 150 }}>{ipfsHash}</div>
-          </Route>
+          </Route> */}
           <Route path="/ipfsdown">
             <div style={{ paddingTop: 32, width: 740, margin: "auto" }}>
               <Input
