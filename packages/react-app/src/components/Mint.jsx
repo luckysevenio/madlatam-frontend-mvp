@@ -42,7 +42,7 @@ export default function Mint(props) {
     },
   ];
 
-  const ipfsAPI = require("ipfs-http-client");
+  const ipfsAPI = require("ipfs-api");
   const ipfs = ipfsAPI({ host: "ipfs.infura.io", port: "5001", protocol: "https" });
 
   const layout = {
