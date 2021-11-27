@@ -6,9 +6,9 @@ export default function Mint(props) {
   const [mintTo, setMintTo] = React.useState();
   const [ipfsHashPic, setIpfsHashPic] = React.useState();
   const [ipfsHashNFT, setIpfsHashNFT] = React.useState();
-  const [sending, setSending] = React.useState();
+  const [sending, setSending] = React.useState(false);
   const [sendingPic, setSendingPic] = React.useState();
-  const [sendingMint, setSendingMint] = React.useState();
+  const [sendingMint, setSendingMint] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
   const [image, setImage] = React.useState();
   const [buffer, setBuffer] = React.useState();
@@ -177,11 +177,12 @@ export default function Mint(props) {
           shape="round"
           type="primary"
           onClick={async () => {
-            setSending(true);
+            setSendingMint(true);
             console.log("sending");
-            await writeContracts.YourCollectible.mintItem(mintTo, ipfsHashNFT);
+            const tx = await writeContracts.YourCollectible.mintItem(mintTo, ipfsHashNFT);
+            await tx.wait();
             setCurrent(4);
-            setSending(false);
+            setSendingMint(false);
           }}
         >
           Mint
