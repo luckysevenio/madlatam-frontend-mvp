@@ -500,7 +500,7 @@ function App(props) {
                 and give you a form to interact with it locally
             */}
 
-            <div style={{ width: 640, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+            <div style={{ width: 640, margin: "auto", paddingBottom: 32 }}>
               <List
                 bordered
                 dataSource={yourCollectibles}
