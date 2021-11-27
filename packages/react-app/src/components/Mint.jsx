@@ -3,7 +3,6 @@ import { Button, Input, Tooltip, Form, InputNumber, Upload, message, Steps, Imag
 import { AddressInput } from ".";
 
 export default function Mint(props) {
-
   const [mintTo, setMintTo] = React.useState();
   const [ipfsHashPic, setIpfsHashPic] = React.useState();
   const [ipfsHashNFT, setIpfsHashNFT] = React.useState();
@@ -42,7 +41,7 @@ export default function Mint(props) {
     },
   ];
 
-  const ipfsAPI = require("ipfs-api");
+  const ipfsAPI = require("ipfs-http-client");
   const ipfs = ipfsAPI({ host: "ipfs.infura.io", port: "5001", protocol: "https" });
 
   const layout = {
@@ -70,7 +69,7 @@ export default function Mint(props) {
     if (result && result.path) {
       console.log(result.path);
     }
-    setIpfsHashNFT(result[0].path);
+    setIpfsHashNFT(result.path);
     setSendingMint(false);
     console.log("RESULT:", result);
     setCurrent(3);
@@ -92,13 +91,14 @@ export default function Mint(props) {
     console.log("UPLOADING...", Buffer.from(buffer));
     setSendingPic(true);
     setIpfsHashPic();
-    const result = await ipfs.files.add(buffer);
+    const result = await ipfs.add(buffer);
+    console.log(result);
     if (result && result.path) {
       console.log(ipfsHashPic);
     }
-    setIpfsHashPic("https://ipfs.io/ipfs/" + result[0].path);
+    setIpfsHashPic("https://ipfs.io/ipfs/" + result.path);
     setSendingPic(false);
-    console.log("RESULT:", result[0].path);
+    console.log("RESULT:", result.path);
     setCurrent(2);
   };
 
